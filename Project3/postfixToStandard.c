@@ -25,19 +25,19 @@ void freeTree(TREE*);
 int main() {
 	char buff[100];
 	char *token;
-	int answer;	
-	
+	int answer;
+
 	expression = NULL;
 	stack = NULL;
 
 	printf("Enter postfix expression: ");
 	fgets(buff, 100, stdin);
 	buff[strlen(buff)-1] = '\0';
-	
+
 	token = strtok(buff, " ");
 	while (token != NULL) {
 		if (token[0] == '+' || token[0] == '-' || token[0] == '*' || token[0] == '/') {
-			TREE *x, *y, *result;			
+			TREE *x, *y, *result;
 			y = pop();
 			x = pop();
 
@@ -53,15 +53,15 @@ int main() {
 
 	//should be just the final expression tree on the stack.
 	expression = pop();
-	
+
 	//now expression tree is built.  Do inorder traversal.
 	printf("In infix: ");
 	inorder(expression);
 	printf("\n\n");
-	
+
 	//free tree memory
 	freeTree(expression);
-	
+
 	return 0;
 }
 
@@ -70,7 +70,7 @@ TREE* create(char* root, TREE* left, TREE* right) {
 	temp->root = root;
 	temp->left = left;
 	temp->right = right;
-	
+
 	return temp;
 }
 
@@ -78,7 +78,7 @@ void push(TREE* temp) {
 	NODE* newnode = malloc(sizeof(NODE));
 	newnode->data = temp;
 	newnode->next = NULL;
-	
+
 	newnode->next = stack;
 	stack = newnode;
 }
@@ -89,7 +89,7 @@ TREE* pop(void) {
 	NODE* nextnode = stack->next;
 	free(stack);
 	stack = nextnode;
-	
+
 	return temp;
 }
 
