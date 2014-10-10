@@ -7,8 +7,10 @@ typedef struct node {
   char data;
   struct node* next;
 } NODE;
-
+//Initialize head of stack
 NODE* stack;
+
+//Keeps track of the number of elements in the stack.
 int count;
 
 void push(char);
@@ -19,45 +21,54 @@ void popLower(char);
 
 int main() {
   printf("Input an infix equation to be adjusted\n");
-  char c[5];
-  while (scanf("%s", c) != '\n') {
-    if (isdigit(c[0])) {
+  char c[5]; // Array simply to allow multiple digits
+  while (c[0] != '\n') { //scanf doesn't grab new line characters. Had to improvise
+    scanf("%s", c);
+    if (isdigit(c[0])) { //If it has a digit in the beginning the whole thing is a number
       printf(" %s ", c);
     }
-    else if ( count == 0 ) {
+    else if ( count == 0 ) { //If we don't have anything else we assume we are supposed to push
       push(c[0]);
     }
     else {
-      popLower(c[0]);
+      popLower(c[0]); //Pop everything with a lower priority
+      if (c[0] != ')') { //Don't push )
+        push(c[0]);
+      }
     }
-
-    }
-    while (count != 0) {
-      printf(" %c ", pop());
-    }
-    printf(" %c ", stack->data);
+    c[0] = (char)getchar(); // Check for newline characte
   }
+
+  while (count != 0 && peek() != '(') { //print everything except extra (
+    printf(" %c ", pop());
+  }
+  printf("\n"); //Friendly new line character
+  free(stack);
+}
 
 
 
 
 void popLower(char c) {
-  char c2 = pop();
-  if (c2 = '(') {
-    if (c != ')') {
-      push('(');
+  char temp; //This was an int on accident, but everything worked. Ints and chars are very compatible.
+  if (c == ')') {
+    temp = pop();
+    while (temp != '(') {
+      printf(" %c ", temp);
+      temp = peek();
+    }
+    if ( temp == '(') { //If we found a (, remove it from the stack
+      temp = pop();
     }
     return;
   }
-  int cp = charPriority(c);
-  int c2p = charPriority(c2);
-  while ( cp > c2p) {
-    printf(" %c ", c2);
-    c2 = pop();
-    cp = charPriority(c);
-    c2p = charPriority(c2);
+  if (c == '(') { //Don't check priority on (
+    return;
   }
-  printf(" %c ", c2);
+  while ( count != 0 && charPriority(c) >= charPriority(peek())) {
+    printf(" %c ", pop());
+  }
+  return;
 }
 
 int charPriority(char c) {
@@ -69,13 +80,11 @@ int charPriority(char c) {
   } else {
     cp = 1;
   }
-
   return cp;
 }
 void push(char temp) {
   NODE* newnode = malloc(sizeof(NODE));
   newnode->data = temp;
-  //newnode->next = NULL;
   count++;
   newnode->next = stack;
   stack = newnode;
@@ -84,9 +93,9 @@ void push(char temp) {
 char pop(void) {
   //assume not empty
   char temp = stack->data;
-  //NODE* nextnode = stack->next;
-  //free(s1tack);
-  stack = stack->next;
+  NODE* nextnode = stack->next;
+  free(stack); //Clear stack because no garbage collector
+  stack = nextnode;
   count--;
   return temp;
 }
