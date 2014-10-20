@@ -72,7 +72,7 @@ Fraction Fraction::divide(Fraction f)
 void Fraction::print()
 {
   if (this->top == this->bot) {
-    cout "Answer is: " << top << endl;
+    cout << "Answer is: " << top << endl;
   } else {
     cout << "Answer is: " << top << "/" << bot << endl;
   }
