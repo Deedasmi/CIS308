@@ -20,8 +20,6 @@ int main()
   //First fraction
   getline(cin, top, '/');
   topN = atoi(top.c_str());
-  //stringstream ss(top);
-  //ss >> topN;
   cin >> botN;
   one.setValues(topN, botN);
 
@@ -31,8 +29,6 @@ int main()
   //Second fraction
   getline(cin, top, '/');
   topN = atoi(top.c_str());
-  //stringstream ss(top);
-  //ss >> topN;
   cin >> botN;
   two.setValues(topN, botN);
 
