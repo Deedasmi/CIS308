@@ -39,14 +39,19 @@ int main()
   if (op == '+') {
     ans = one.plus(two);
   }
-  if (op == '-') {
+  else if (op == '-') {
     ans = one.minus(two);
   }
-  if (op == '*') {
+  else if (op == '*') {
     ans = one.times(two);
   }
-  if (op == '/') {
+  else if (op == '/') {
     ans = one.divide(two);
+  }
+  else
+  {
+    cerr << "Invalid operator\n";
+    return 1;
   }
 
   ans.print();
