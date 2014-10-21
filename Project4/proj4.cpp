@@ -62,6 +62,6 @@ int main()
   }
 
   ans.print();
-  
+
   return 0;
 }

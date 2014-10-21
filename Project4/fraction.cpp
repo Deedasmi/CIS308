@@ -21,12 +21,11 @@ Fraction Fraction::plus(Fraction f)
 {
   //Common denominator
   if (this->bot != f.bot) {
-    int ftb = f.bot
+    int ftb = f.bot;
     f.top = f.top * this->bot;
     f.bot = f.bot * this->bot;
     this->top = this->top * ftb;
     this->bot = this->bot * ftb;
-    
   }
   Fraction ret =Fraction();
   int nTop = this->top + f.top;
@@ -40,10 +39,11 @@ Fraction Fraction::minus(Fraction f)
 {
   //Common denominator
   if (this->bot != f.bot) {
-    this->top = this->top * f.bot;
-    this->bot = this->bot * f.bot;
+    int ftb = f.bot;
     f.top = f.top * this->bot;
     f.bot = f.bot * this->bot;
+    this->top = this->top * ftb;
+    this->bot = this->bot * ftb;
   }
   Fraction ret =Fraction();
   int nTop = this->top - f.top;
