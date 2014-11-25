@@ -13,6 +13,8 @@
 
 class Matrix {
 public:
+  Matrix(int, int);
+  ~Matrix(void);
   void setElem(int, int, int);
   int getElem(int, int);
   Matrix* times(Matrix*);

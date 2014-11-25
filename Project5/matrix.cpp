@@ -6,7 +6,7 @@
 * Mutiplies two matricies                     *
 ***********************************************/
 
-#include "Matrix.h"
+#include "matrix.h"
 
 Matrix::Matrix(int row, int col) {
   rows = row;
@@ -21,7 +21,7 @@ Matrix::Matrix(int row, int col) {
 }
 
 Matrix::~Matrix(void) {
-  for (int r=0; r < rows; r+=) {
+  for (int r=0; r < rows; r++) {
     delete [] arr[r];
   }
   delete arr;
@@ -41,12 +41,12 @@ int Matrix::getElem(int row, int col) {
 void Matrix::print(void) {
   for (int r=0; r < rows; r++) {
     for (int c=0; c < cols; c++) {
-      std::cout << arr[row][col] << " ";
+      std::cout << arr[rows][cols] << " ";
     }
     std::cout << std::endl;
   }
 }
 
 Matrix* Matrix::times(Matrix*) {
-  
+
 }
