@@ -19,6 +19,8 @@ public:
   int getElem(int, int);
   Matrix* times(Matrix*);
   void print(void);
+  int getRows(void);
+  int getCols(void);
 private:
   int rows;
   int cols;

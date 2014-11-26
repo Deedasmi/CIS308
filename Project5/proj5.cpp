@@ -13,8 +13,21 @@
 
 using namespace std;
 
+Matrix* readMatrix(void);
+
 int main() {
   cout << "Enter first matrix (use // to denote new rows): " << endl;
+  Matrix* m1 = readMatrix();
+  cout << "Enter second matrix (use // to denote new rows): " << endl;
+  Matrix* m2 = readMatrix();
+
+  if(m1->getCols() != m2->getRows()) {
+    cerr << "Invalid matrices" << endl;
+    return 1;
+  }
+}
+
+Matrix* readMatrix(void) {
   string line;
   string row;
   vector<vector<int> > mat;
@@ -40,7 +53,7 @@ int main() {
         matrixRow >> s;
         stringstream ss(s);
         ss >> d;
-        cout << endl << "Saving " << d << " from " << matrixRow.str() << endl;
+        //cout << endl << "Saving " << d << " from " << matrixRow.str() << endl;
         temp.push_back(d);
         pos2++;
         matrixRow.str(matrixRow.str().erase(0, pos2));
@@ -52,45 +65,33 @@ int main() {
   int pos2 = 0;
   getline(matrix, row, '/');
   stringstream matrixRow(row);
+  matrixRow << " ";
   while ((pos2 = matrixRow.str().find(" ")) != -1) {
     string s;
     int d = 0;
-    matrixRow << s;
+    matrixRow >> s;
     stringstream ss(s);
     ss >> d;
+    //cout << endl << "Saving " << d << " from " << matrixRow.str() << endl;
     temp.push_back(d);
     pos2++;
     matrixRow.str(matrixRow.str().erase(0, pos2));
+    //cout << matrixRow.str();
   }
   mat.push_back(temp);
-  //cout << endl << mat.size() << endl << mat.at(1).size();
-  cout << "Data in mat(1)" << endl;
-  for(int i = 0; i < mat.at(1).size(); i++ ) {
-    cout << mat.at(1).at(i) << " ";
+
+  int size = mat.at(0).size();
+  for (int i = 0; i < mat.size(); i++) {
+    if(mat.at(i).size() != size) {
+      cerr << "Invalid matrix";
+      throw 1;
+    }
   }
-
-
-  /*
-  getline(cin, line);
-  stringstream matrix (line);
-
-
-
-  while (matrix.str() != "") {
-  //Parse input for rows
-  getline(matrix, row, '/');
-  stringstream matrixRow (row);
-
-  //Update line with removed row
-  int pos = matrix.str().find("//");
-  pos = pos + 2;
-  matrix.str(matrix.str().erase(0, pos));
-
-  while (matrixRow.str() != "") {
-
+  Matrix* ret = new Matrix(mat.size(), size);
+  for (int i = 0; i < mat.size(); i++) {
+    for (int d = 0; d < mat.at(i).size(); d++) {
+      ret->setElem(i, d, mat.at(i).at(d));
+    }
   }
-
-
-  cout << endl << matrix.str() << endl << matrixRow.str();
-}*/
+  return ret;
 }

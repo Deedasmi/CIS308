@@ -47,6 +47,14 @@ void Matrix::print(void) {
   }
 }
 
-Matrix* Matrix::times(Matrix*) {
+Matrix* Matrix::times(Matrix* o) {
+  Matrix* ret = new Matrix(this->rows, o->getCols());
+}
 
+int Matrix::getRows(void) {
+  return rows;
+}
+
+int Matrix::getCols(void) {
+  return cols;
 }
