@@ -39,9 +39,9 @@ int Matrix::getElem(int row, int col) {
 }
 
 void Matrix::print(void) {
-  for (int r=0; r < rows; r++) {
+  for (int r=0; r < this->getRows(); r++) {
     for (int c=0; c < cols; c++) {
-      std::cout << arr[rows][cols] << " ";
+      std::cout << arr[r][c] << " ";
     }
     std::cout << std::endl;
   }
@@ -49,6 +49,16 @@ void Matrix::print(void) {
 
 Matrix* Matrix::times(Matrix* o) {
   Matrix* ret = new Matrix(this->rows, o->getCols());
+  for (int r = 0; r < this->rows; r++) {
+    for (int c = 0; c < o->getCols(); c++) {
+      int total = 0;
+      for (int d = 0; d < this->cols; d++) {s
+        total = (total + (this->getElem(r, d) * o->getElem(d, c)));
+      }
+      ret->setElem(r, c, total);
+    }
+  }
+  return ret;
 }
 
 int Matrix::getRows(void) {

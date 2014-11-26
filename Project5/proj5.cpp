@@ -25,6 +25,8 @@ int main() {
     cerr << "Invalid matrices" << endl;
     return 1;
   }
+  Matrix* ans = m1->times(m2);
+  ans->print();
 }
 
 Matrix* readMatrix(void) {
@@ -63,9 +65,9 @@ Matrix* readMatrix(void) {
   }
   vector<int> temp;
   int pos2 = 0;
-  getline(matrix, row, '/');
-  stringstream matrixRow(row);
-  matrixRow << " ";
+  //getline(matrix, row, '/');
+  stringstream matrixRow(matrix.str());
+  matrixRow.str(matrixRow.str().append(" "));
   while ((pos2 = matrixRow.str().find(" ")) != -1) {
     string s;
     int d = 0;
