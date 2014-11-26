@@ -22,16 +22,20 @@ int main() {
   Matrix* m2 = readMatrix();
 
   if(m1->getCols() != m2->getRows()) {
-    cerr << "Invalid matrices" << endl;
-    return 1;
+    cerr << "Invalid matrices" << endl << "Rows of m1 does not match cols of m2" << endl;
+    throw 2;
   }
   Matrix* ans = m1->times(m2);
   ans->print();
+  delete m1;
+  delete m2;
+  delete ans;
 }
 
 Matrix* readMatrix(void) {
   string line;
   string row;
+  //Using vectors to have easy size to initialize matrix
   vector<vector<int> > mat;
   getline(cin, line);
   stringstream matrix (line);
@@ -39,56 +43,55 @@ Matrix* readMatrix(void) {
   while ((pos = matrix.str().find("//")) != -1) {
       getline(matrix, row, '/');
       stringstream matrixRow (row);
-
-      //Update line with removed row
+      //Skip "// "
       pos = pos + 3;
       matrix.str(matrix.str().erase(0, pos));
-
-      //cout << matrix.str() << " ";
       int pos2 = 0;
-      //cout << matrix.str();
-      //cin.ignore();
       vector<int> temp;
       while ((pos2 = matrixRow.str().find(" ")) != -1) {
+        //Convert to number
         string s;
         int d = 0;
         matrixRow >> s;
         stringstream ss(s);
         ss >> d;
-        //cout << endl << "Saving " << d << " from " << matrixRow.str() << endl;
+
+        //Add number to vector
         temp.push_back(d);
         pos2++;
         matrixRow.str(matrixRow.str().erase(0, pos2));
     }
-
+    //Add vector to vector
     mat.push_back(temp);
   }
   vector<int> temp;
   int pos2 = 0;
-  //getline(matrix, row, '/');
   stringstream matrixRow(matrix.str());
   matrixRow.str(matrixRow.str().append(" "));
   while ((pos2 = matrixRow.str().find(" ")) != -1) {
+    //Convert to number
     string s;
     int d = 0;
     matrixRow >> s;
     stringstream ss(s);
     ss >> d;
-    //cout << endl << "Saving " << d << " from " << matrixRow.str() << endl;
+
+    //Add number to vector
     temp.push_back(d);
     pos2++;
     matrixRow.str(matrixRow.str().erase(0, pos2));
-    //cout << matrixRow.str();
   }
   mat.push_back(temp);
 
+  //Check to see if column sizes are consistant
   int size = mat.at(0).size();
   for (int i = 0; i < mat.size(); i++) {
     if(mat.at(i).size() != size) {
-      cerr << "Invalid matrix";
+      cerr << "Invalid matrix" << endl << "Columns different sizes" << endl;
       throw 1;
     }
   }
+  //Fill matrix with vector data
   Matrix* ret = new Matrix(mat.size(), size);
   for (int i = 0; i < mat.size(); i++) {
     for (int d = 0; d < mat.at(i).size(); d++) {

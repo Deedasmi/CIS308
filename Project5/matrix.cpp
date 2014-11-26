@@ -52,7 +52,7 @@ Matrix* Matrix::times(Matrix* o) {
   for (int r = 0; r < this->rows; r++) {
     for (int c = 0; c < o->getCols(); c++) {
       int total = 0;
-      for (int d = 0; d < this->cols; d++) {s
+      for (int d = 0; d < this->cols; d++) {
         total = (total + (this->getElem(r, d) * o->getElem(d, c)));
       }
       ret->setElem(r, c, total);
