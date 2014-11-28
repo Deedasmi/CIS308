@@ -11,6 +11,8 @@
 #include <string>
 #include <vector>
 
+//iostream included via matrix.h"
+
 using namespace std;
 
 Matrix* readMatrix(void);
@@ -37,17 +39,20 @@ Matrix* readMatrix(void) {
   string row;
   //Using vectors to have easy size to initialize matrix
   vector<vector<int> > mat;
+  //Grab the whole input
   getline(cin, line);
   stringstream matrix (line);
   int pos = 0;
+  //For each row EXCEPT LAST
   while ((pos = matrix.str().find("//")) != -1) {
       getline(matrix, row, '/');
       stringstream matrixRow (row);
-      //Skip "// "
+      //Erase everything up to and including "// "
       pos = pos + 3;
       matrix.str(matrix.str().erase(0, pos));
       int pos2 = 0;
       vector<int> temp;
+      //For each column in row
       while ((pos2 = matrixRow.str().find(" ")) != -1) {
         //Convert to number
         string s;
@@ -64,6 +69,7 @@ Matrix* readMatrix(void) {
     //Add vector to vector
     mat.push_back(temp);
   }
+  //last row
   vector<int> temp;
   int pos2 = 0;
   stringstream matrixRow(matrix.str());
