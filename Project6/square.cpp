@@ -92,7 +92,3 @@ void Square::print() {
     std::cout << std::endl;
   }
 }
-
-//Destructor
-Square::~Square() {
-}

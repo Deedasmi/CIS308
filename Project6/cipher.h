@@ -15,7 +15,6 @@
 class Cipher {
 public:
   Cipher(std::string, std::string);
-  //~Cipher(void);
   std::string encrypt(std::string);
   std::string decrypt(std::string);
 private:
