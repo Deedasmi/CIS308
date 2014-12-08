@@ -1,6 +1,16 @@
+/**********************************************
+* Name: Richard Petrie                        *
+* Date: 12-07-2014                            *
+* Assignment: Project 6: Cipher               *
+***********************************************
+* Encrypts and Decrypts a string based        *
+* on a block cipher input by the user         *
+***********************************************/
+
 #include "cipher.h"
 #include <iostream>
 
+//Constructor. Nothing is using new.
 Cipher::Cipher(std::string c1, std::string c2) {
   plain1 = Square();
   plain2 = Square();
@@ -8,6 +18,7 @@ Cipher::Cipher(std::string c1, std::string c2) {
   cipher2 = Square(c2);
 }
 
+//Encryption
 std::string Cipher::encrypt(std::string phrase) {
   for (int i = 0; i < phrase.length(); i = i + 2) {
     int* pos1 = plain1.getPos(phrase[i]);
@@ -17,9 +28,14 @@ std::string Cipher::encrypt(std::string phrase) {
     delete pos2;
     delete pos1;
   }
+  std::cout << std::endl;
+  cipher1.print();
+  std::cout << std::endl;
+  cipher2.print();
   return phrase;
 }
 
+//Decryption
 std::string Cipher::decrypt(std::string phrase) {
   for (int i = 0; i < phrase.length(); i = i + 2) {
     int* pos1 = cipher1.getPos(phrase[i]);
@@ -29,5 +45,9 @@ std::string Cipher::decrypt(std::string phrase) {
     delete pos2;
     delete pos1;
   }
+  std::cout << std::endl;
+  cipher1.print();
+  std::cout << std::endl;
+  cipher2.print();
   return phrase;
 }

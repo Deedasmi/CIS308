@@ -1,20 +1,30 @@
+/**********************************************
+* Name: Richard Petrie                        *
+* Date: 12-07-2014                            *
+* Assignment: Project 6: Cipher               *
+***********************************************
+* Encrypts and Decrypts a string based        *
+* on a block cipher input by the user         *
+***********************************************/
+
 #include "square.h"
 #include <iostream>
 
+//Constructor
 Square::Square(std::string content) {
-  key = new char*[5];
   for (int i = 0; i < 5; i++) {
-    key[i] = new char[5];
     for (int k = 0; k < 5; k++) {
       key[i][k] = 'a';
     }
   }
   bool* hasChar = new bool[25];
+  for (int i = 0; i < 25; i++) {
+    hasChar[i] = 0;
+  }
   int x = 0;
   int y = 0;
   for (int i = 0; i < content.length(); i++) {
     char c = std::tolower(content[i]);
-    //std::cout << c;
     if (!hasChar[convert(c)]) {
       key[x][y] = c;
       hasChar[convert(c)] = 1;
@@ -39,8 +49,10 @@ Square::Square(std::string content) {
     }
     y = 0;
   }
+  delete [] hasChar;
 }
 
+//Get position of a character
 int* Square::getPos(char c) {
   for (int i = 0; i < 5; i++) {
     for (int k = 0; k < 5; k++) {
@@ -51,22 +63,27 @@ int* Square::getPos(char c) {
   }
 }
 
+//Convert a character into a number 0-25
 int Square::convert(char c) {
   int ret = c - 'a';
-  if (c > 'q') {
-    return ++ret;
+  if (c >= 'q') {
+    return --ret;
   }
   return ret;
 }
 
+//Convert an integer to a character a-z but not q
 char Square::convert(int c) {
-  char ret = (char)(c + 'a');
-  if (c > 'q') {
-    return ++ret;
+  if (c >= 16) { //If it's bigger than q
+    char ret = (char)(c + 'b');
+    return ret;
   }
+
+  char ret = (char)(c + 'a');
   return ret;
 }
 
+//Print function for troubleshooting
 void Square::print() {
   for (int i = 0; i < 5; i++) {
     for (int k = 0; k < 5; k++) {
@@ -74,12 +91,8 @@ void Square::print() {
     }
     std::cout << std::endl;
   }
-  //std::cout << key[4,4]
 }
 
+//Destructor
 Square::~Square() {
-  for (int i = 0; i < 5; i++) {
-    //delete [] key[i];
-  }
-  //delete [] key;
 }

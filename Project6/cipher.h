@@ -1,3 +1,12 @@
+/**********************************************
+* Name: Richard Petrie                        *
+* Date: 12-07-2014                            *
+* Assignment: Project 6: Cipher               *
+***********************************************
+* Encrypts and Decrypts a string based        *
+* on a block cipher input by the user         *
+***********************************************/
+
 #ifndef CIPHER_H
 #define CIPHER_H
 
@@ -6,7 +15,7 @@
 class Cipher {
 public:
   Cipher(std::string, std::string);
-  //S~Cipher(void);
+  //~Cipher(void);
   std::string encrypt(std::string);
   std::string decrypt(std::string);
 private:
